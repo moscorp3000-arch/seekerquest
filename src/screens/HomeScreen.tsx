@@ -26,10 +26,16 @@ export default function HomeScreen({
   onStartQuest,
   completedQuests,
   onDevReset,
+  onPrivacy,
+  onTerms,
+  onLicenses,
 }: {
   onStartQuest: (questId: number) => void;
   completedQuests: number[];
   onDevReset: () => void;
+  onPrivacy: () => void;
+  onTerms: () => void;
+  onLicenses: () => void;
 }) {
   const { selectedAccount, deauthorizeSession } = useAuthorization();
 
@@ -43,15 +49,9 @@ export default function HomeScreen({
       'Weet je zeker dat je je wallet wilt disconnecten?',
       [
         { text: 'Annuleer', style: 'cancel' },
-        {
-          text: 'Disconnect',
-          style: 'destructive',
-          onPress: async () => {
-            await transact(async wallet => {
-              await deauthorizeSession(wallet);
-            });
-          },
-        },
+        { text: 'Disconnect', style: 'destructive', onPress: async () => {
+          await transact(async wallet => { await deauthorizeSession(wallet); });
+        }},
       ]
     );
   };
@@ -99,7 +99,6 @@ export default function HomeScreen({
         {QUESTS.map((quest) => {
           const unlocked = isQuestUnlocked(quest.id, completedQuests);
           const completed = completedQuests.includes(quest.id);
-
           return (
             <TouchableOpacity
               key={quest.id}
@@ -136,7 +135,23 @@ export default function HomeScreen({
             </TouchableOpacity>
           );
         })}
-        <View style={{ height: 40 }} />
+
+        {/* Footer links */}
+        <View style={styles.footerLinks}>
+          <TouchableOpacity onPress={onPrivacy}>
+            <Text style={styles.footerLink}>Privacy Policy</Text>
+          </TouchableOpacity>
+          <Text style={styles.footerDivider}>·</Text>
+          <TouchableOpacity onPress={onTerms}>
+            <Text style={styles.footerLink}>Gebruiksvoorwaarden</Text>
+          </TouchableOpacity>
+          <Text style={styles.footerDivider}>·</Text>
+          <TouchableOpacity onPress={onLicenses}>
+            <Text style={styles.footerLink}>Licenties</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.footerVersion}>Seeker Quest v1.0 — Built for Solana Mobile</Text>
+        <View style={{ height: 32 }} />
       </ScrollView>
     </SafeAreaView>
   );
@@ -154,8 +169,7 @@ const styles = StyleSheet.create({
   disconnectBtn: {
     paddingHorizontal: 10, paddingVertical: 6, borderRadius: 10,
     backgroundColor: 'rgba(255,68,68,0.08)',
-    borderWidth: 1, borderColor: 'rgba(255,68,68,0.2)',
-    alignItems: 'center',
+    borderWidth: 1, borderColor: 'rgba(255,68,68,0.2)', alignItems: 'center',
   },
   disconnectIcon: { fontSize: 14 },
   disconnectLabel: { fontSize: 9, color: 'rgba(255,100,100,0.8)', fontWeight: '600', marginTop: 1 },
@@ -175,11 +189,7 @@ const styles = StyleSheet.create({
   questCardActive: { borderColor: '#FF7800', backgroundColor: 'rgba(255,120,0,0.08)' },
   questCardCompleted: { borderColor: 'rgba(20,241,149,0.3)', backgroundColor: 'rgba(20,241,149,0.04)' },
   questCardLocked: { opacity: 0.45 },
-  questIcon: {
-    width: 48, height: 48, borderRadius: 14,
-    backgroundColor: 'rgba(255,255,255,0.06)',
-    alignItems: 'center', justifyContent: 'center',
-  },
+  questIcon: { width: 48, height: 48, borderRadius: 14, backgroundColor: 'rgba(255,255,255,0.06)', alignItems: 'center', justifyContent: 'center' },
   questIconLocked: { backgroundColor: 'rgba(255,255,255,0.03)' },
   questIconText: { fontSize: 24 },
   questInfo: { flex: 1, gap: 4 },
@@ -191,4 +201,8 @@ const styles = StyleSheet.create({
   questDesc: { fontSize: 13, color: 'rgba(255,255,255,0.4)' },
   completedCheck: { fontSize: 20 },
   questArrow: { fontSize: 24, color: 'rgba(255,255,255,0.2)' },
+  footerLinks: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 8, marginTop: 24, marginBottom: 8 },
+  footerLink: { fontSize: 12, color: 'rgba(255,120,0,0.6)' },
+  footerDivider: { fontSize: 12, color: 'rgba(255,255,255,0.2)' },
+  footerVersion: { textAlign: 'center', fontSize: 11, color: 'rgba(255,255,255,0.15)', marginBottom: 8 },
 });
