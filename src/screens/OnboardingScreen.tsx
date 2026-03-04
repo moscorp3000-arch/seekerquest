@@ -1,26 +1,36 @@
 import React, { useState } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity,
-  SafeAreaView, Dimensions,
+  SafeAreaView,
 } from 'react-native';
-
-const { width } = Dimensions.get('window');
 
 const STEPS = [
   {
     emoji: '📱',
     title: 'Welkom bij SeekerQuest',
     desc: 'Jouw interactieve gids voor de Seeker telefoon. Leer alles over Web3 terwijl je echte acties uitvoert op Solana.',
+    extra: null,
   },
   {
     emoji: '🗺️',
     title: '12 Interactieve Quests',
-    desc: 'Van je eerste swap tot geavanceerde DeFi. Elke quest leert je een nieuwe skill op de Seeker.',
+    desc: 'Van je eerste swap tot geavanceerde DeFi. Elke quest leert je een nieuwe vaardigheid op de Seeker.',
+    extra: null,
   },
   {
     emoji: '⛓️',
-    title: 'Onchain Acties',
-    desc: 'Sommige quests vereisen echte transacties — swap, stake, of installeer apps. Je Seed Vault houdt alles veilig.',
+    title: 'Twee soorten quests',
+    desc: 'Sommige quests zijn informatief — lezen en leren. Andere vereisen een echte actie op de Solana blockchain.',
+    extra: [
+      { icon: '📖', label: 'Informatief', desc: 'Lees, leer en beantwoord vragen. Geen transactie nodig.' },
+      { icon: '⛓️', label: 'Onchain', desc: 'Voer een echte swap, stake of andere actie uit. Je Seed Vault bevestigt met vingerafdruk.' },
+    ],
+  },
+  {
+    emoji: '🔐',
+    title: 'Jouw Seed Vault beschermt je',
+    desc: 'Bij elke onchain actie vraagt de Seed Vault om jouw vingerafdruk. Zonder jouw goedkeuring gebeurt er niets. Jij hebt altijd de controle.',
+    extra: null,
   },
 ];
 
@@ -46,6 +56,21 @@ export default function OnboardingScreen({ onFinish }: { onFinish: () => void })
         </View>
         <Text style={styles.title}>{step.title}</Text>
         <Text style={styles.desc}>{step.desc}</Text>
+
+        {/* Extra uitleg kaartjes */}
+        {step.extra && (
+          <View style={styles.extraCards}>
+            {step.extra.map((item, i) => (
+              <View key={i} style={styles.extraCard}>
+                <Text style={styles.extraIcon}>{item.icon}</Text>
+                <View style={{ flex: 1 }}>
+                  <Text style={styles.extraLabel}>{item.label}</Text>
+                  <Text style={styles.extraDesc}>{item.desc}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        )}
       </View>
 
       {/* Dots */}
@@ -75,16 +100,25 @@ const styles = StyleSheet.create({
   orb2: { position: 'absolute', width: 200, height: 200, borderRadius: 100, backgroundColor: 'rgba(255,80,0,0.08)', bottom: 80, left: -60 },
   skipBtn: { alignSelf: 'flex-end', paddingHorizontal: 24, paddingTop: 16 },
   skipText: { fontSize: 14, color: 'rgba(255,255,255,0.3)' },
-  content: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 32 },
+  content: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28 },
   emojiWrap: {
     width: 100, height: 100, borderRadius: 30,
     backgroundColor: 'rgba(255,120,0,0.15)',
     borderWidth: 2, borderColor: 'rgba(255,120,0,0.3)',
-    alignItems: 'center', justifyContent: 'center', marginBottom: 32,
+    alignItems: 'center', justifyContent: 'center', marginBottom: 28,
   },
   emoji: { fontSize: 48 },
-  title: { fontSize: 28, fontWeight: '900', color: '#FFFFFF', textAlign: 'center', marginBottom: 16 },
-  desc: { fontSize: 16, color: 'rgba(255,255,255,0.5)', textAlign: 'center', lineHeight: 26 },
+  title: { fontSize: 26, fontWeight: '900', color: '#FFFFFF', textAlign: 'center', marginBottom: 14 },
+  desc: { fontSize: 15, color: 'rgba(255,255,255,0.5)', textAlign: 'center', lineHeight: 24, marginBottom: 20 },
+  extraCards: { width: '100%', gap: 10 },
+  extraCard: {
+    flexDirection: 'row', alignItems: 'flex-start', gap: 12,
+    backgroundColor: 'rgba(255,255,255,0.04)', borderRadius: 14,
+    padding: 14, borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)',
+  },
+  extraIcon: { fontSize: 24, marginTop: 2 },
+  extraLabel: { fontSize: 14, fontWeight: '800', color: '#FFFFFF', marginBottom: 3 },
+  extraDesc: { fontSize: 13, color: 'rgba(255,255,255,0.45)', lineHeight: 20 },
   dotsRow: { flexDirection: 'row', gap: 8, marginBottom: 24 },
   dot: { width: 8, height: 8, borderRadius: 4, backgroundColor: 'rgba(255,255,255,0.15)' },
   dotActive: { width: 24, backgroundColor: '#FF7800' },

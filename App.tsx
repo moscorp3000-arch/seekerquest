@@ -1,8 +1,6 @@
 import {
   ConnectionProvider,
-  RPC_ENDPOINT,
 } from './src/components/providers/ConnectionProvider';
-import { clusterApiUrl } from '@solana/web3.js';
 import React, { useState, useEffect } from 'react';
 import { AuthorizationProvider, useAuthorization } from './src/components/providers/AuthorizationProvider';
 import OnboardingScreen from './src/screens/OnboardingScreen';
@@ -17,6 +15,9 @@ import {
   resetAllProgress,
 } from './src/progress';
 import { Alert } from 'react-native';
+
+// Devnet voor stabiliteit — verificatie via "Toch voltooien" knop
+const MAINNET_RPC = 'https://api.devnet.solana.com';
 
 type Screen = 'onboarding' | 'welcome' | 'home' | 'quest';
 
@@ -76,14 +77,8 @@ function AppContent() {
   };
 
   if (screen === null) return null;
-
-  if (screen === 'onboarding') {
-    return <OnboardingScreen onFinish={handleOnboardingDone} />;
-  }
-
-  if (!selectedAccount) {
-    return <WelcomeScreen />;
-  }
+  if (screen === 'onboarding') return <OnboardingScreen onFinish={handleOnboardingDone} />;
+  if (!selectedAccount) return <WelcomeScreen />;
 
   if (screen === 'quest') {
     return (
@@ -110,8 +105,8 @@ function AppContent() {
 export default function App() {
   return (
     <ConnectionProvider
-      config={{ commitment: 'processed' }}
-      endpoint={clusterApiUrl(RPC_ENDPOINT)}>
+      config={{ commitment: 'confirmed' }}
+      endpoint={MAINNET_RPC}>
       <AuthorizationProvider>
         <AppContent />
       </AuthorizationProvider>
