@@ -5,6 +5,7 @@ import OnboardingScreen from './src/screens/OnboardingScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import QuestDetailScreen from './src/screens/QuestDetailScreen';
+import CompletionScreen from './src/screens/CompletionScreen';
 import PrivacyScreen from './src/screens/PrivacyScreen';
 import TermsScreen from './src/screens/TermsScreen';
 import LicensesScreen from './src/screens/LicensesScreen';
@@ -14,9 +15,10 @@ import {
 } from './src/progress';
 import { Alert } from 'react-native';
 
-const MAINNET_RPC = 'https://api.devnet.solana.com';
+const MAINNET_RPC = 'https://api.mainnet-beta.solana.com';
+const TOTAL_QUESTS = 12;
 
-type Screen = 'onboarding' | 'welcome' | 'home' | 'quest' | 'privacy' | 'terms' | 'licenses';
+type Screen = 'onboarding' | 'welcome' | 'home' | 'quest' | 'completion' | 'privacy' | 'terms' | 'licenses';
 
 function AppContent() {
   const { selectedAccount } = useAuthorization();
@@ -50,7 +52,12 @@ function AppContent() {
     await completeQuest(activeQuestId);
     const updated = await getCompletedQuests();
     setCompletedQuests(updated);
-    setScreen('home');
+    // Als alle quests voltooid → CompletionScreen
+    if (updated.length >= TOTAL_QUESTS) {
+      setScreen('completion');
+    } else {
+      setScreen('home');
+    }
   };
 
   const handleDevReset = () => {
@@ -70,6 +77,7 @@ function AppContent() {
   if (screen === 'terms') return <TermsScreen onBack={() => setScreen('home')} />;
   if (screen === 'licenses') return <LicensesScreen onBack={() => setScreen('home')} />;
   if (!selectedAccount) return <WelcomeScreen />;
+  if (screen === 'completion') return <CompletionScreen onBack={() => setScreen('home')} />;
   if (screen === 'quest') return (
     <QuestDetailScreen
       questId={activeQuestId}
