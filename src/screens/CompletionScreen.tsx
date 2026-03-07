@@ -13,7 +13,7 @@ import {
   LAMPORTS_PER_SOL,
 } from '@solana/web3.js';
 
-const TREASURY_WALLET = new PublicKey('Dq1jtEAStWzcR5Nv4EP3pZf4tSF75Gpn6hgZh9yxr4K5');
+const TREASURY_WALLET = new PublicKey('8LED9AaiG92Zr7LqJDBrK4XqLCyws6AyUaWKsw4183BT');
 const VERIFICATION_AMOUNT = 100; // 0.000001 SOL in lamports
 
 type Status = 'idle' | 'sending' | 'success' | 'failed';
@@ -31,12 +31,10 @@ export default function CompletionScreen({ onBack }: { onBack: () => void }) {
   const handleVerify = useCallback(async () => {
     if (!selectedAccount) return;
     setStatus('sending');
-
     try {
       const signature = await transact(async wallet => {
         const authResult = await authorizeSession(wallet);
         const latestBlockhash = await connection.getLatestBlockhash();
-
         const transaction = new Transaction().add(
           SystemProgram.transfer({
             fromPubkey: authResult.publicKey,
@@ -44,21 +42,11 @@ export default function CompletionScreen({ onBack }: { onBack: () => void }) {
             lamports: VERIFICATION_AMOUNT,
           })
         );
-
         transaction.recentBlockhash = latestBlockhash.blockhash;
         transaction.feePayer = authResult.publicKey;
-
-        const signedTx = await wallet.signTransactions({
-          transactions: [transaction],
-        });
-
-        const txSig = await connection.sendRawTransaction(
-          signedTx[0].serialize()
-        );
-
-        return txSig;
+        const signedTx = await wallet.signTransactions({ transactions: [transaction] });
+        return await connection.sendRawTransaction(signedTx[0].serialize());
       });
-
       setTxSignature(signature);
       setStatus('success');
     } catch (e) {
@@ -70,24 +58,19 @@ export default function CompletionScreen({ onBack }: { onBack: () => void }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.orb} />
-
       <View style={styles.content}>
-        {/* Trophy */}
         <View style={styles.trophyWrap}>
           <Text style={styles.trophy}>🏆</Text>
         </View>
-
-        <Text style={styles.title}>Alle quests voltooid!</Text>
+        <Text style={styles.title}>All quests completed!</Text>
         <Text style={styles.subtitle}>
-          Je hebt alle 12 quests van SeekerQuest doorlopen. Verificeer je wallet om in aanmerking te komen voor de Seeker Mobile Season 2 airdrop.
+          You've completed all 12 quests of SeekerQuest. Verify your wallet to create an on-chain record of your completion.
         </Text>
-
-        {/* Info card */}
         <View style={styles.infoCard}>
           <View style={styles.infoRow}>
             <Text style={styles.infoIcon}>🔐</Text>
             <View style={{ flex: 1 }}>
-              <Text style={styles.infoLabel}>Jouw wallet</Text>
+              <Text style={styles.infoLabel}>Your wallet</Text>
               <Text style={styles.infoValue}>{shortAddress}</Text>
             </View>
           </View>
@@ -95,7 +78,7 @@ export default function CompletionScreen({ onBack }: { onBack: () => void }) {
           <View style={styles.infoRow}>
             <Text style={styles.infoIcon}>💸</Text>
             <View style={{ flex: 1 }}>
-              <Text style={styles.infoLabel}>Verificatiebedrag</Text>
+              <Text style={styles.infoLabel}>Verification amount</Text>
               <Text style={styles.infoValue}>0.000001 SOL (~$0.0001)</Text>
             </View>
           </View>
@@ -103,60 +86,49 @@ export default function CompletionScreen({ onBack }: { onBack: () => void }) {
           <View style={styles.infoRow}>
             <Text style={styles.infoIcon}>🎯</Text>
             <View style={{ flex: 1 }}>
-              <Text style={styles.infoLabel}>Doel</Text>
-              <Text style={styles.infoValue}>Season 2 Airdrop kwalificatie</Text>
+              <Text style={styles.infoLabel}>Purpose</Text>
+              <Text style={styles.infoValue}>On-chain proof of completion</Text>
             </View>
           </View>
         </View>
-
         <Text style={styles.disclaimer}>
-          Door te verificeren bevestig je dat je wallet adres mag worden opgeslagen als gekwalificeerde deelnemer voor toekomstige Seeker Mobile airdrops. Zie onze Gebruiksvoorwaarden voor meer informatie.
+          By verifying, you confirm that your wallet address may be stored as an on-chain record of completion. See our Terms of Use for more information.
         </Text>
       </View>
-
       <View style={styles.bottomBar}>
         {status === 'success' ? (
           <View style={styles.successBox}>
             <Text style={styles.successIcon}>✅</Text>
             <View style={{ flex: 1 }}>
-              <Text style={styles.successTitle}>Wallet geverifieerd!</Text>
-              <Text style={styles.successSub}>Je bent gekwalificeerd voor Season 2.</Text>
-              {txSignature && (
-                <Text style={styles.txHash} numberOfLines={1}>
-                  TX: {txSignature.slice(0, 20)}...
-                </Text>
-              )}
+              <Text style={styles.successTitle}>Wallet verified!</Text>
+              <Text style={styles.successSub}>Your completion has been recorded on-chain.</Text>
+              {txSignature && <Text style={styles.txHash} numberOfLines={1}>TX: {txSignature.slice(0, 20)}...</Text>}
             </View>
           </View>
         ) : status === 'failed' ? (
           <View style={{ gap: 10 }}>
-            <Text style={styles.failedText}>
-              ❌ Transactie mislukt. Controleer je SOL balance en probeer opnieuw.
-            </Text>
+            <Text style={styles.failedText}>❌ Transaction failed. Check your SOL balance and try again.</Text>
             <TouchableOpacity style={styles.verifyBtn} onPress={handleVerify}>
-              <Text style={styles.verifyBtnText}>🔄 Opnieuw proberen</Text>
+              <Text style={styles.verifyBtnText}>🔄 Try again</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.skipBtn} onPress={onBack}>
-              <Text style={styles.skipBtnText}>Later doen →</Text>
+              <Text style={styles.skipBtnText}>Do this later →</Text>
             </TouchableOpacity>
           </View>
         ) : (
           <View style={{ gap: 10 }}>
-            <TouchableOpacity
-              style={[styles.verifyBtn, status === 'sending' && styles.verifyBtnDisabled]}
-              onPress={handleVerify}
-              disabled={status === 'sending'}>
+            <TouchableOpacity style={[styles.verifyBtn, status === 'sending' && styles.verifyBtnDisabled]} onPress={handleVerify} disabled={status === 'sending'}>
               {status === 'sending' ? (
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                   <ActivityIndicator color="#080808" size="small" />
-                  <Text style={styles.verifyBtnText}>Versturen...</Text>
+                  <Text style={styles.verifyBtnText}>Sending...</Text>
                 </View>
               ) : (
-                <Text style={styles.verifyBtnText}>🚀 Verificeer voor Season 2</Text>
+                <Text style={styles.verifyBtnText}>🚀 Verify on-chain</Text>
               )}
             </TouchableOpacity>
             <TouchableOpacity style={styles.skipBtn} onPress={onBack}>
-              <Text style={styles.skipBtnText}>Overslaan →</Text>
+              <Text style={styles.skipBtnText}>Skip →</Text>
             </TouchableOpacity>
           </View>
         )}
@@ -169,21 +141,11 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#080808' },
   orb: { position: 'absolute', width: 300, height: 300, borderRadius: 150, backgroundColor: 'rgba(255,120,0,0.1)', top: -80, right: -80 },
   content: { flex: 1, paddingHorizontal: 24, paddingTop: 40, alignItems: 'center' },
-  trophyWrap: {
-    width: 100, height: 100, borderRadius: 30,
-    backgroundColor: 'rgba(255,120,0,0.15)',
-    borderWidth: 2, borderColor: 'rgba(255,120,0,0.4)',
-    alignItems: 'center', justifyContent: 'center', marginBottom: 24,
-  },
+  trophyWrap: { width: 100, height: 100, borderRadius: 30, backgroundColor: 'rgba(255,120,0,0.15)', borderWidth: 2, borderColor: 'rgba(255,120,0,0.4)', alignItems: 'center', justifyContent: 'center', marginBottom: 24 },
   trophy: { fontSize: 48 },
   title: { fontSize: 28, fontWeight: '900', color: '#FFFFFF', textAlign: 'center', marginBottom: 12 },
   subtitle: { fontSize: 15, color: 'rgba(255,255,255,0.5)', textAlign: 'center', lineHeight: 24, marginBottom: 28 },
-  infoCard: {
-    width: '100%', backgroundColor: 'rgba(255,255,255,0.04)',
-    borderRadius: 20, padding: 20,
-    borderWidth: 1, borderColor: 'rgba(255,120,0,0.2)',
-    marginBottom: 20, gap: 4,
-  },
+  infoCard: { width: '100%', backgroundColor: 'rgba(255,255,255,0.04)', borderRadius: 20, padding: 20, borderWidth: 1, borderColor: 'rgba(255,120,0,0.2)', marginBottom: 20, gap: 4 },
   infoRow: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 8 },
   infoIcon: { fontSize: 22 },
   infoLabel: { fontSize: 11, color: 'rgba(255,255,255,0.35)', marginBottom: 2 },
@@ -196,11 +158,7 @@ const styles = StyleSheet.create({
   verifyBtnText: { fontSize: 17, fontWeight: '800', color: '#080808' },
   skipBtn: { alignItems: 'center', paddingVertical: 12 },
   skipBtnText: { fontSize: 14, color: 'rgba(255,255,255,0.3)' },
-  successBox: {
-    flexDirection: 'row', alignItems: 'center', gap: 14,
-    backgroundColor: 'rgba(20,241,149,0.08)', borderRadius: 16,
-    padding: 18, borderWidth: 1, borderColor: 'rgba(20,241,149,0.3)',
-  },
+  successBox: { flexDirection: 'row', alignItems: 'center', gap: 14, backgroundColor: 'rgba(20,241,149,0.08)', borderRadius: 16, padding: 18, borderWidth: 1, borderColor: 'rgba(20,241,149,0.3)' },
   successIcon: { fontSize: 32 },
   successTitle: { fontSize: 16, fontWeight: '800', color: '#14F195', marginBottom: 4 },
   successSub: { fontSize: 13, color: 'rgba(255,255,255,0.5)' },

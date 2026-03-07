@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <radialGradient id="bg2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a0800"/>
+      <stop offset="100%" stop-color="#080808"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF7800" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FF7800" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="orange" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFB347"/>
+      <stop offset="100%" stop-color="#FF7800"/>
+    </linearGradient>
+    <linearGradient id="orangevert" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFB347"/>
+      <stop offset="100%" stop-color="#FF5500"/>
+    </linearGradient>
+    <filter id="blur2">
+      <feGaussianBlur stdDeviation="20"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="url(#bg2)"/>
+
+  <!-- Glow -->
+  <circle cx="256" cy="240" r="180" fill="url(#glow2)" filter="url(#blur2)"/>
+
+  <!-- Signal rings (like phone signal / seeker radar) -->
+  <circle cx="256" cy="256" r="170" fill="none" stroke="#FF7800" stroke-width="1" stroke-opacity="0.12"/>
+  <circle cx="256" cy="256" r="130" fill="none" stroke="#FF7800" stroke-width="1.5" stroke-opacity="0.2"/>
+  <circle cx="256" cy="256" r="90" fill="none" stroke="#FF7800" stroke-width="2" stroke-opacity="0.3"/>
+
+  <!-- Phone shape (Seeker) -->
+  <rect x="200" y="138" width="112" height="192" rx="18" fill="none" stroke="url(#orange)" stroke-width="3"/>
+  <rect x="206" y="148" width="100" height="162" rx="12" fill="#FF7800" fill-opacity="0.08"/>
+
+  <!-- Phone screen glow lines -->
+  <line x1="220" y1="175" x2="292" y2="175" stroke="#FF7800" stroke-width="1.5" stroke-opacity="0.4" stroke-linecap="round"/>
+  <line x1="220" y1="191" x2="280" y2="191" stroke="#FF7800" stroke-width="1.5" stroke-opacity="0.25" stroke-linecap="round"/>
+  <line x1="220" y1="207" x2="270" y2="207" stroke="#FF7800" stroke-width="1.5" stroke-opacity="0.15" stroke-linecap="round"/>
+
+  <!-- Seed Vault indicator (fingerprint dot) -->
+  <circle cx="256" cy="296" r="18" fill="none" stroke="url(#orange)" stroke-width="2"/>
+  <circle cx="256" cy="296" r="10" fill="none" stroke="#FF7800" stroke-width="1.5" stroke-opacity="0.6"/>
+  <circle cx="256" cy="296" r="4" fill="url(#orange)"/>
+
+  <!-- Bottom home bar -->
+  <line x1="236" y1="316" x2="276" y2="316" stroke="#FF7800" stroke-width="2.5" stroke-linecap="round" stroke-opacity="0.5"/>
+
+  <!-- Quest arrow (top right, pointing up-right) -->
+  <g transform="translate(310, 148)">
+    <circle cx="0" cy="0" r="22" fill="#FF7800" fill-opacity="0.15" stroke="#FF7800" stroke-width="1.5" stroke-opacity="0.5"/>
+    <polygon points="0,-10 8,6 0,2 -8,6" fill="url(#orangevert)" transform="rotate(45)"/>
+  </g>
+
+  <!-- Tick dots on outer ring -->
+  <circle cx="256" cy="86" r="3" fill="#FF7800" fill-opacity="0.5"/>
+  <circle cx="426" cy="256" r="3" fill="#FF7800" fill-opacity="0.3"/>
+  <circle cx="86" cy="256" r="3" fill="#FF7800" fill-opacity="0.3"/>
+  <circle cx="256" cy="426" r="3" fill="#FF7800" fill-opacity="0.2"/>
+</svg>

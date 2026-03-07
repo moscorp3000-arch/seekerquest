@@ -6,22 +6,22 @@ export default function PrivacyScreen({ onBack }: { onBack: () => void }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={onBack} style={styles.backBtn}>
-          <Text style={styles.backText}>← Terug</Text>
+          <Text style={styles.backText}>← Back</Text>
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Privacy Policy</Text>
       </View>
       <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
-          <Text style={styles.lastUpdated}>Laatst bijgewerkt: maart 2026</Text>
+          <Text style={styles.lastUpdated}>Last updated: March 2026</Text>
           <Text style={styles.intro}>
-            Seeker Quest is toegewijd aan het beschermen van je privacy. Dit beleid legt uit hoe we omgaan met informatie wanneer je onze app gebruikt.
+            Seeker Quest is committed to protecting your privacy. This policy explains how we handle information when you use our app.
           </Text>
           {[
-            { title: '1. Gegevens die we verzamelen', text: 'We verzamelen geen persoonlijke gegevens.\n\nSeeker Quest is een volledig lokale app. Alle voortgangsdata wordt opgeslagen op je apparaat via AsyncStorage en wordt nooit naar een server verstuurd.\n\nWe verzamelen niet:\n• Je naam, e-mailadres of contactgegevens\n• Locatiedata\n• Apparaat-ID\'s of advertentie-ID\'s\n• Gebruiksanalytics of gedragsdata' },
-            { title: '2. Blockchain & Wallet Data', text: 'Wanneer je je Solana wallet verbindt via de Seed Vault, lezen we alleen je publieke wallet adres. We hebben nooit toegang tot je private keys of seed phrase.\n\nAlle blockchain transacties worden door jou geïnitieerd en uitsluitend ondertekend in je Seed Vault.' },
-            { title: '3. Lokale opslag', text: 'De volgende data wordt alleen lokaal opgeslagen:\n\n• Leervoortgang (voltooide quests)\n• Streak teller\n\nDeze data verlaat je apparaat nooit en kan altijd worden verwijderd door de app te verwijderen.' },
-            { title: '4. Diensten van derden', text: 'Seeker Quest werkt samen met:\n\n• Solana Blockchain — publiek blockchain netwerk\n• Solana Mobile Wallet Adapter — voor wallet verbinding\n\nDeze diensten hebben hun eigen privacybeleid. Blockchain transacties zijn publiek en permanent.' },
-            { title: '5. Contact', text: 'Vragen over dit privacybeleid? Neem contact op via de Solana Mobile dApp Store listing of onze officiële kanalen.' },
+            { title: '1. Data we collect', text: 'We collect no personal data.\n\nSeeker Quest is a fully local app. All progress data is stored on your device via AsyncStorage and is never sent to a server.\n\nWe do not collect:\n• Your name, email address or contact details\n• Location data\n• Device IDs or advertising IDs\n• Usage analytics or behavioral data' },
+            { title: '2. Blockchain & Wallet Data', text: 'When you connect your Solana wallet via the Seed Vault, we only read your public wallet address. We never have access to your private keys or seed phrase.\n\nAll blockchain transactions are initiated by you and signed exclusively in your Seed Vault.' },
+            { title: '3. Local storage', text: 'The following data is stored locally only:\n\n• Learning progress (completed quests)\n• Streak counter\n\nThis data never leaves your device and can always be deleted by uninstalling the app.' },
+            { title: '4. Third-party services', text: 'Seeker Quest works with:\n\n• Solana Blockchain — public blockchain network\n• Solana Mobile Wallet Adapter — for wallet connection\n\nThese services have their own privacy policies. Blockchain transactions are public and permanent.' },
+            { title: '5. Contact', text: 'Questions about this privacy policy? Reach out via the Solana Mobile dApp Store listing or our official channels.' },
           ].map((s, i) => (
             <View key={i} style={styles.section}>
               <Text style={styles.sectionTitle}>{s.title}</Text>

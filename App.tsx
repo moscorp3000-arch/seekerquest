@@ -13,6 +13,7 @@ import {
   getCompletedQuests, completeQuest, isOnboardingDone,
   setOnboardingDone, resetAllProgress,
 } from './src/progress';
+import { recordOpen, resetStreak } from './util/streak';
 import { Alert } from 'react-native';
 
 const MAINNET_RPC = 'https://api.mainnet-beta.solana.com';
@@ -33,6 +34,7 @@ function AppContent() {
       ]);
       setCompletedQuests(completed);
       setScreen(onboardingDone ? 'home' : 'onboarding');
+      recordOpen();
     };
     init();
   }, []);
@@ -65,6 +67,7 @@ function AppContent() {
       { text: 'Annuleer', style: 'cancel' },
       { text: 'Reset', style: 'destructive', onPress: async () => {
         await resetAllProgress();
+        await resetStreak();
         setCompletedQuests([]);
         setScreen('onboarding');
       }},

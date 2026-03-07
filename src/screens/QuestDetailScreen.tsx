@@ -11,89 +11,89 @@ const QUEST_CONTENT: Record<number, {
   steps: { icon: string; title: string; desc: string; action?: string; tip?: string }[];
 }> = {
   1: {
-    title: 'Welkom bij Seeker', icon: '👋', onchain: false,
+    title: 'Welcome to Seeker', icon: '👋', onchain: false,
     steps: [
-      { icon: '📱', title: 'Wat is de Seeker?', desc: 'De Seeker is de eerste telefoon gebouwd voor Solana. Met een ingebouwde Seed Vault — een hardware beveiligingschip — zijn je crypto keys nooit blootgesteld aan het internet.' },
-      { icon: '🔐', title: 'Jouw Seed Vault Wallet', desc: 'De Seed Vault is jouw primaire wallet op de Seeker. Hij slaat je private keys op in een beveiligde chip. Elke transactie vereist jouw vingerafdruk. Apps zoals Jupiter en Phantom kun je ook verbinden met je Seed Vault wallet.' },
-      { icon: '🪙', title: 'Genesis Token', desc: 'Als vroege Seeker gebruiker heb je recht op het Genesis Token — een bewijs van jouw early adopter status op het Solana netwerk.' },
+      { icon: '📱', title: 'What is the Seeker?', desc: 'The Seeker is the first phone built for Solana. With a built-in Seed Vault — a hardware security chip — your crypto keys are never exposed to the internet.' },
+      { icon: '🔐', title: 'Your Seed Vault Wallet', desc: 'The Seed Vault is your primary wallet on the Seeker. It stores your private keys in a secure chip. Every transaction requires your fingerprint. Apps like Jupiter and Phantom can also be connected to your Seed Vault wallet.' },
+      { icon: '🪙', title: 'Genesis Token', desc: 'As an early Seeker user, you are eligible for the Genesis Token — proof of your early adopter status on the Solana network.' },
     ],
   },
   2: {
-    title: 'Je Eerste Swap', icon: '🔄', onchain: true,
+    title: 'Your First Swap', icon: '🔄', onchain: true,
     steps: [
-      { icon: '🔄', title: 'Wat is een swap?', desc: 'Een swap is het wisselen van één token voor een andere. Op Solana gaat dit in minder dan 1 seconde voor minder dan $0.001 aan kosten. Apps zoals Jupiter en Phantom bieden ook swap functies aan — maar in deze quest doen we het vanuit de Seed Vault.' },
-      { icon: '🔐', title: 'Swap via Seed Vault', desc: 'Open de Seed Vault wallet op je Seeker. Ga naar Swap en wissel een kleine hoeveelheid SOL naar USDC. De Seed Vault vraagt om je vingerafdruk ter bevestiging.', action: 'Open Seed Vault → Swap → SOL naar USDC', tip: 'Je kunt dit ook via Jupiter of Phantom doen, maar zorg dat je Seed Vault wallet daar geselecteerd is.' },
+      { icon: '🔄', title: 'What is a swap?', desc: 'A swap is exchanging one token for another. On Solana this happens in under 1 second for less than $0.001 in fees. Apps like Jupiter and Phantom offer swap functions too — but in this quest we do it from the Seed Vault.' },
+      { icon: '🔐', title: 'Swap via Seed Vault', desc: 'Open the Seed Vault wallet on your Seeker. Go to Swap and exchange a small amount of SOL to USDC. The Seed Vault will ask for your fingerprint to confirm.', action: 'Open Seed Vault → Swap → SOL to USDC', tip: 'You can also do this via Jupiter or Phantom, but make sure your Seed Vault wallet is selected there.' },
     ],
   },
   3: {
-    title: 'Tokens Ontdekken', icon: '🪙', onchain: true,
+    title: 'Exploring Tokens', icon: '🪙', onchain: true,
     steps: [
-      { icon: '🪙', title: 'SPL Tokens op Solana', desc: 'Op Solana bestaan honderden tokens. Van stablecoins (USDC) tot meme tokens (BONK) tot ecosystem tokens (SKR). Apps zoals Jupiter en Phantom tonen al je tokens — maar je Seed Vault beheert ze allemaal.' },
-      { icon: '📱', title: 'SKR & BONK via Seed Vault', desc: 'SKR is het Seeker ecosystem token voor Guardian staking. BONK is Solana\'s bekendste meme token. Swap vanuit je Seed Vault wallet naar SKR of BONK.', action: 'Open Seed Vault → Swap → SOL naar SKR of BONK', tip: 'Jupiter biedt ook deze swap aan. Verbind je Seed Vault wallet in Jupiter voor hetzelfde resultaat.' },
+      { icon: '🪙', title: 'SPL Tokens on Solana', desc: 'Hundreds of tokens exist on Solana. From stablecoins (USDC) to meme tokens (BONK) to ecosystem tokens (SKR). Apps like Jupiter and Phantom show all your tokens — but your Seed Vault manages them all.' },
+      { icon: '📱', title: 'SKR & BONK via Seed Vault', desc: 'SKR is the Seeker ecosystem token used for Guardian staking. BONK is Solana\'s most well-known meme token. Swap from your Seed Vault wallet to SKR or BONK.', action: 'Open Seed Vault → Swap → SOL to SKR or BONK', tip: 'Jupiter also offers this swap. Connect your Seed Vault wallet in Jupiter for the same result.' },
     ],
   },
   4: {
-    title: 'Staking Leren', icon: '💎', onchain: true,
+    title: 'Learning to Stake', icon: '💎', onchain: true,
     steps: [
-      { icon: '💎', title: 'Wat is staking?', desc: 'Staking betekent je SOL uitlenen aan een validator om het Solana netwerk te beveiligen. In ruil verdien je ~7% APY — automatisch, elke epoch (~2.5 dagen). Dit kan direct vanuit je Seed Vault.' },
-      { icon: '🏦', title: 'Stake via Seed Vault', desc: 'Open de Seed Vault wallet op je Seeker. Ga naar Staking, kies een validator met lage commissie (0-10%) en hoge uptime, en delegeer je SOL. Je blijft altijd eigenaar.', action: 'Open Seed Vault → Staking → Kies validator → Stake SOL', tip: 'Let op: kies geen validator met meer dan 10% van de totale stake — dat schaadt de decentralisatie van Solana.' },
+      { icon: '💎', title: 'What is staking?', desc: 'Staking means lending your SOL to a validator to help secure the Solana network. In return you earn ~7% APY — automatically, every epoch (~2.5 days). This can be done directly from your Seed Vault.' },
+      { icon: '🏦', title: 'Stake via Seed Vault', desc: 'Open the Seed Vault wallet on your Seeker. Go to Staking, choose a validator with low commission (0-10%) and high uptime, and delegate your SOL. You always remain the owner.', action: 'Open Seed Vault → Staking → Choose validator → Stake SOL', tip: 'Avoid validators with more than 10% of total stake — this harms Solana\'s decentralization.' },
     ],
   },
   5: {
     title: 'SKR Staking', icon: '🛡️', onchain: true,
     steps: [
-      { icon: '🛡️', title: 'Guardian Nodes', desc: 'Guardian nodes zijn de ruggengraat van het Seeker netwerk. Door SKR te staken steun je een Guardian node. Dit doe je vanuit de Seeker app op je telefoon.' },
-      { icon: '⚡', title: 'Stake SKR via Seeker App', desc: 'Open de Seeker app op je telefoon. Ga naar Guardian staking en stake je SKR tokens naar een node naar keuze. De Seed Vault bevestigt de transactie met je vingerafdruk.', action: 'Open Seeker App → Guardian → Stake SKR', tip: 'Je hebt SKR nodig voor deze stap. Heb je nog geen SKR? Doe eerst Quest 3.' },
+      { icon: '🛡️', title: 'Guardian Nodes', desc: 'Guardian nodes are the backbone of the Seeker network. By staking SKR you support a Guardian node. This is done from the Seeker app on your phone.' },
+      { icon: '⚡', title: 'Stake SKR via Seeker App', desc: 'Open the Seeker app on your phone. Go to Guardian staking and stake your SKR tokens to a node of your choice. The Seed Vault confirms the transaction with your fingerprint.', action: 'Open Seeker App → Guardian → Stake SKR', tip: 'You need SKR for this step. Don\'t have SKR yet? Complete Quest 3 first.' },
     ],
   },
   6: {
-    title: 'dApp Store Verkennen', icon: '🏪', onchain: false,
+    title: 'Exploring the dApp Store', icon: '🏪', onchain: false,
     steps: [
-      { icon: '🏪', title: 'Solana dApp Store', desc: 'De Seeker heeft een eigen dApp Store — speciaal voor Solana apps. Geen Google Play fees, geen censuur. Alle apps werken direct met je Seed Vault wallet.' },
-      { icon: '📲', title: 'Installeer aanbevolen apps', desc: 'Aanbevolen apps: Jupiter (swaps), Phantom (wallet), Magic Eden (NFTs), Drift (trading). Installeer er minimaal 3. Je kunt ze allemaal verbinden met je Seed Vault wallet.', action: 'Open dApp Store → Installeer 3 apps', tip: 'Bij elke app kun je "Connect Wallet" kiezen en je Seed Vault selecteren.' },
+      { icon: '🏪', title: 'Solana dApp Store', desc: 'The Seeker has its own dApp Store — built exclusively for Solana apps. No Google Play fees, no censorship. All apps work directly with your Seed Vault wallet.' },
+      { icon: '📲', title: 'Install recommended apps', desc: 'Recommended apps: Jupiter (swaps), Phantom (wallet), Magic Eden (NFTs), Drift (trading). Install at least 3. You can connect all of them to your Seed Vault wallet.', action: 'Open dApp Store → Install 3 apps', tip: 'In each app you can choose "Connect Wallet" and select your Seed Vault.' },
     ],
   },
   7: {
     title: 'Activity Tracker', icon: '🏃', onchain: false,
     steps: [
-      { icon: '⭕', title: 'Dagelijkse Ringen', desc: 'De Seeker heeft bewegingsringen — vergelijkbaar met Apple Watch. Sluit ze dagelijks om je streak te behouden en XP te verdienen in het Seeker ecosysteem.' },
-      { icon: '⬆️', title: 'Levels & XP', desc: 'Elke actie op je Seeker geeft XP: swappen, staken, quests voltooien, apps gebruiken. Hogere levels geven toegang tot exclusieve features en grotere beloningen.' },
+      { icon: '⭕', title: 'Daily Rings', desc: 'The Seeker has activity rings — similar to Apple Watch. Close them daily to maintain your streak and earn XP in the Seeker ecosystem.' },
+      { icon: '⬆️', title: 'Levels & XP', desc: 'Every action on your Seeker earns XP: swapping, staking, completing quests, using apps. Higher levels unlock exclusive features and bigger rewards.' },
     ],
   },
   8: {
-    title: 'Dagelijkse Routine', icon: '📅', onchain: true,
+    title: 'Daily Routine', icon: '📅', onchain: true,
     steps: [
-      { icon: '📅', title: 'DCA Strategie', desc: 'Dollar Cost Averaging (DCA) betekent regelmatig een vast bedrag investeren — ongeacht de prijs. Dit vermindert het risico van slechte timing en bouwt langzaam vermogen op.' },
-      { icon: '🔄', title: 'Stel een routine in', desc: 'Jupiter heeft een recurring swap feature waarmee je automatisch elke dag of week een bedrag kunt swappen. Verbind je Seed Vault wallet in Jupiter en stel de automatische swap in.', action: 'Open Jupiter → Verbind Seed Vault → Stel recurring swap in', tip: 'Begin klein — €1-5 per dag is al genoeg om de gewoonte op te bouwen.' },
+      { icon: '📅', title: 'DCA Strategy', desc: 'Dollar Cost Averaging (DCA) means regularly investing a fixed amount — regardless of price. This reduces the risk of bad timing and slowly builds wealth.' },
+      { icon: '🔄', title: 'Set up a routine', desc: 'Jupiter has a recurring swap feature that lets you automatically swap an amount every day or week. Connect your Seed Vault wallet in Jupiter and set up the automatic swap.', action: 'Open Jupiter → Connect Seed Vault → Set recurring swap', tip: 'Start small — $1-5 per day is enough to build the habit.' },
     ],
   },
   9: {
-    title: 'Veiligheid & Scams', icon: '🔒', onchain: false,
+    title: 'Security & Scams', icon: '🔒', onchain: false,
     steps: [
-      { icon: '🎣', title: 'Phishing & Wallet Drainers', desc: 'Phishing = nep websites die je seed phrase willen stelen. Wallet drainers = malicious contracten die al je tokens stelen met één handtekening. Controleer altijd de URL voor je connecteert.' },
-      { icon: '🛡️', title: 'Seed Vault beschermt je', desc: 'De Seed Vault toont altijd exact wat een transactie doet voor je tekent. Blowfish security is ingebouwd en waarschuwt bij verdachte contracten. Bij twijfel — niet tekenen, nooit.' },
-      { icon: '✅', title: 'Gouden regels', desc: '1. Deel nooit je seed phrase. 2. Teken nooit wat je niet begrijpt. 3. Controleer altijd het wallet adres. 4. Gebruik je Seed Vault als primaire wallet — niet een hot wallet.' },
+      { icon: '🎣', title: 'Phishing & Wallet Drainers', desc: 'Phishing = fake websites trying to steal your seed phrase. Wallet drainers = malicious contracts that steal all your tokens with one signature. Always check the URL before connecting.' },
+      { icon: '🛡️', title: 'Seed Vault protects you', desc: 'The Seed Vault always shows exactly what a transaction does before you sign. Blowfish security is built-in and warns you about suspicious contracts. When in doubt — don\'t sign, ever.' },
+      { icon: '✅', title: 'Golden rules', desc: '1. Never share your seed phrase. 2. Never sign what you don\'t understand. 3. Always verify the wallet address. 4. Use your Seed Vault as your primary wallet — not a hot wallet.' },
     ],
   },
   10: {
-    title: 'Level Up Strategie', icon: '⬆️', onchain: false,
+    title: 'Level Up Strategy', icon: '⬆️', onchain: false,
     steps: [
-      { icon: '⬆️', title: 'Level 3 bereiken', desc: 'Level 3 vereist: dagelijkse activity ringen sluiten, minimaal 1 swap per week vanuit je Seed Vault, en actieve deelname in het Seeker netwerk.' },
-      { icon: '🏆', title: 'Jouw weekplan', desc: 'Maandag: DCA swap via Seed Vault. Woensdag: activity ringen checken. Vrijdag: staking rewards bekijken. Zondag: nieuwe apps in de dApp Store verkennen. Consistentie = hogere levels.' },
+      { icon: '⬆️', title: 'Reaching Level 3', desc: 'Level 3 requires: closing daily activity rings, at least 1 swap per week from your Seed Vault, and active participation in the Seeker network.' },
+      { icon: '🏆', title: 'Your weekly plan', desc: 'Monday: DCA swap via Seed Vault. Wednesday: check activity rings. Friday: review staking rewards. Sunday: explore new apps in the dApp Store. Consistency = higher levels.' },
     ],
   },
   11: {
-    title: 'DePIN & Verdienen', icon: '🌿', onchain: false,
+    title: 'DePIN & Earning', icon: '🌿', onchain: false,
     steps: [
-      { icon: '🌿', title: 'Wat is DePIN?', desc: 'DePIN = Decentralized Physical Infrastructure Networks. Je verdient crypto door met je telefoon fysieke netwerken te ondersteunen. De Seeker is hier perfect voor.' },
-      { icon: '📡', title: 'Grass & Helium', desc: 'Grass betaalt je voor het delen van ongebruikte internetbandbreedte. Helium bouwt een gedecentraliseerd 5G netwerk. Installeer beide apps via de dApp Store en verbind je Seed Vault wallet voor uitbetalingen.' },
+      { icon: '🌿', title: 'What is DePIN?', desc: 'DePIN = Decentralized Physical Infrastructure Networks. You earn crypto by using your phone to support physical networks. The Seeker is perfect for this.' },
+      { icon: '📡', title: 'Grass & Helium', desc: 'Grass pays you for sharing unused internet bandwidth. Helium builds a decentralized 5G network. Install both apps via the dApp Store and connect your Seed Vault wallet for payouts.' },
     ],
   },
   12: {
-    title: 'DeFi Gevorderd', icon: '🏦', onchain: true,
+    title: 'Advanced DeFi', icon: '🏦', onchain: true,
     steps: [
-      { icon: '🏦', title: 'Liquidity & Lending', desc: 'Gevorderde DeFi: je kunt liquiditeit verschaffen aan pools (bijv. SOL/USDC op Orca) en rente verdienen op je tokens via Kamino. Alles via je Seed Vault wallet.' },
-      { icon: '⚠️', title: 'Verken en begrijp de risico\'s', desc: 'Impermanent loss, liquidatie risico en smart contract bugs zijn reëel. Open Kamino of Orca via de dApp Store, verbind je Seed Vault wallet, en verken de interface. Start klein als je echt meedoet.', action: 'Open Kamino of Orca → Verbind Seed Vault → Verken', tip: 'Begrijp altijd wat je doet voor je grote bedragen inzet.' },
+      { icon: '🏦', title: 'Liquidity & Lending', desc: 'Advanced DeFi: you can provide liquidity to pools (e.g. SOL/USDC on Orca) and earn interest on your tokens via Kamino. All via your Seed Vault wallet.' },
+      { icon: '⚠️', title: 'Explore and understand the risks', desc: 'Impermanent loss, liquidation risk, and smart contract bugs are real. Open Kamino or Orca via the dApp Store, connect your Seed Vault wallet, and explore the interface. Start small if you actually participate.', action: 'Open Kamino or Orca → Connect Seed Vault → Explore', tip: 'Always understand what you\'re doing before committing large amounts.' },
     ],
   },
 };
@@ -144,7 +144,7 @@ export default function QuestDetailScreen({
         <View style={styles.onchainBanner}>
           <Text style={styles.onchainBannerIcon}>🔐</Text>
           <Text style={styles.onchainBannerText}>
-            Voer deze actie uit met je Seed Vault wallet op de Seeker.
+            Complete this action with your Seed Vault wallet on the Seeker.
           </Text>
         </View>
       )}
@@ -184,15 +184,15 @@ export default function QuestDetailScreen({
       <View style={styles.bottomBar}>
         {!isLast ? (
           <TouchableOpacity style={styles.nextBtn} onPress={() => setCurrent(c => c + 1)}>
-            <Text style={styles.nextBtnText}>Volgende →</Text>
+            <Text style={styles.nextBtnText}>Next →</Text>
           </TouchableOpacity>
         ) : quest.onchain ? (
           <TouchableOpacity style={[styles.nextBtn, styles.manualBtn]} onPress={onComplete}>
-            <Text style={[styles.nextBtnText, { color: '#FF7800' }]}>👆 Ik heb dit gedaan</Text>
+            <Text style={[styles.nextBtnText, { color: '#FF7800' }]}>👆 I've done this</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity style={styles.nextBtn} onPress={onComplete}>
-            <Text style={styles.nextBtnText}>✅ Quest Voltooien</Text>
+            <Text style={styles.nextBtnText}>✅ Complete Quest</Text>
           </TouchableOpacity>
         )}
       </View>

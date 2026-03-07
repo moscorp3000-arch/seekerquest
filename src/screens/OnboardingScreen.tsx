@@ -1,35 +1,32 @@
 import React, { useState } from 'react';
-import {
-  View, Text, StyleSheet, TouchableOpacity,
-  SafeAreaView,
-} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 
 const STEPS = [
   {
     emoji: '📱',
-    title: 'Welkom bij SeekerQuest',
-    desc: 'Jouw interactieve gids voor de Seeker telefoon. Leer alles over Web3 terwijl je echte acties uitvoert op Solana.',
+    title: 'Welcome to SeekerQuest',
+    desc: 'Your interactive guide for the Seeker phone. Learn everything about Web3 while performing real actions on Solana.',
     extra: null,
   },
   {
     emoji: '🗺️',
-    title: '12 Interactieve Quests',
-    desc: 'Van je eerste swap tot geavanceerde DeFi. Elke quest leert je een nieuwe vaardigheid op de Seeker.',
+    title: '12 Interactive Quests',
+    desc: 'From your first swap to advanced DeFi. Each quest teaches you a new skill on the Seeker.',
     extra: null,
   },
   {
     emoji: '⛓️',
-    title: 'Twee soorten quests',
-    desc: 'Sommige quests zijn informatief — lezen en leren. Andere vereisen een echte actie op de Solana blockchain.',
+    title: 'Two types of quests',
+    desc: 'Some quests are informational — read and learn. Others require a real action on the Solana blockchain.',
     extra: [
-      { icon: '📖', label: 'Informatief', desc: 'Lees, leer en beantwoord vragen. Geen transactie nodig.' },
-      { icon: '⛓️', label: 'Onchain', desc: 'Voer een echte swap, stake of andere actie uit. Je Seed Vault bevestigt met vingerafdruk.' },
+      { icon: '📖', label: 'Informational', desc: 'Read, learn and answer questions. No transaction needed.' },
+      { icon: '⛓️', label: 'Onchain', desc: 'Perform a real swap, stake or other action. Your Seed Vault confirms with your fingerprint.' },
     ],
   },
   {
     emoji: '🔐',
-    title: 'Jouw Seed Vault beschermt je',
-    desc: 'Bij elke onchain actie vraagt de Seed Vault om jouw vingerafdruk. Zonder jouw goedkeuring gebeurt er niets. Jij hebt altijd de controle.',
+    title: 'Your Seed Vault protects you',
+    desc: 'For every onchain action, the Seed Vault asks for your fingerprint. Nothing happens without your approval. You are always in control.',
     extra: null,
   },
 ];
@@ -43,21 +40,15 @@ export default function OnboardingScreen({ onFinish }: { onFinish: () => void })
     <SafeAreaView style={styles.container}>
       <View style={styles.orb1} />
       <View style={styles.orb2} />
-
-      {/* Skip */}
       <TouchableOpacity style={styles.skipBtn} onPress={onFinish}>
-        <Text style={styles.skipText}>Sla over</Text>
+        <Text style={styles.skipText}>Skip</Text>
       </TouchableOpacity>
-
-      {/* Content */}
       <View style={styles.content}>
         <View style={styles.emojiWrap}>
           <Text style={styles.emoji}>{step.emoji}</Text>
         </View>
         <Text style={styles.title}>{step.title}</Text>
         <Text style={styles.desc}>{step.desc}</Text>
-
-        {/* Extra uitleg kaartjes */}
         {step.extra && (
           <View style={styles.extraCards}>
             {step.extra.map((item, i) => (
@@ -72,22 +63,14 @@ export default function OnboardingScreen({ onFinish }: { onFinish: () => void })
           </View>
         )}
       </View>
-
-      {/* Dots */}
       <View style={styles.dotsRow}>
         {STEPS.map((_, i) => (
           <View key={i} style={[styles.dot, i === current && styles.dotActive]} />
         ))}
       </View>
-
-      {/* Button */}
       <View style={styles.bottomBar}>
-        <TouchableOpacity
-          style={styles.nextBtn}
-          onPress={() => isLast ? onFinish() : setCurrent(c => c + 1)}>
-          <Text style={styles.nextBtnText}>
-            {isLast ? 'Verbind je Wallet →' : 'Volgende →'}
-          </Text>
+        <TouchableOpacity style={styles.nextBtn} onPress={() => isLast ? onFinish() : setCurrent(c => c + 1)}>
+          <Text style={styles.nextBtnText}>{isLast ? 'Connect your Wallet →' : 'Next →'}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -101,21 +84,12 @@ const styles = StyleSheet.create({
   skipBtn: { alignSelf: 'flex-end', paddingHorizontal: 24, paddingTop: 16 },
   skipText: { fontSize: 14, color: 'rgba(255,255,255,0.3)' },
   content: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28 },
-  emojiWrap: {
-    width: 100, height: 100, borderRadius: 30,
-    backgroundColor: 'rgba(255,120,0,0.15)',
-    borderWidth: 2, borderColor: 'rgba(255,120,0,0.3)',
-    alignItems: 'center', justifyContent: 'center', marginBottom: 28,
-  },
+  emojiWrap: { width: 100, height: 100, borderRadius: 30, backgroundColor: 'rgba(255,120,0,0.15)', borderWidth: 2, borderColor: 'rgba(255,120,0,0.3)', alignItems: 'center', justifyContent: 'center', marginBottom: 28 },
   emoji: { fontSize: 48 },
   title: { fontSize: 26, fontWeight: '900', color: '#FFFFFF', textAlign: 'center', marginBottom: 14 },
   desc: { fontSize: 15, color: 'rgba(255,255,255,0.5)', textAlign: 'center', lineHeight: 24, marginBottom: 20 },
   extraCards: { width: '100%', gap: 10 },
-  extraCard: {
-    flexDirection: 'row', alignItems: 'flex-start', gap: 12,
-    backgroundColor: 'rgba(255,255,255,0.04)', borderRadius: 14,
-    padding: 14, borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)',
-  },
+  extraCard: { flexDirection: 'row', alignItems: 'flex-start', gap: 12, backgroundColor: 'rgba(255,255,255,0.04)', borderRadius: 14, padding: 14, borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)' },
   extraIcon: { fontSize: 24, marginTop: 2 },
   extraLabel: { fontSize: 14, fontWeight: '800', color: '#FFFFFF', marginBottom: 3 },
   extraDesc: { fontSize: 13, color: 'rgba(255,255,255,0.45)', lineHeight: 20 },

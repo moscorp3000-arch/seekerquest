@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View, Text, StyleSheet, ScrollView,
   TouchableOpacity, SafeAreaView, Alert,
@@ -6,20 +6,22 @@ import {
 import { useAuthorization } from '../components/providers/AuthorizationProvider';
 import { transact } from '@solana-mobile/mobile-wallet-adapter-protocol-web3js';
 import { isQuestUnlocked } from '../progress';
+import { getStreakState, StreakState } from '../../util/streak';
+import StreakBanner from '../components/StreakBanner';
 
 const QUESTS = [
-  { id: 1, title: 'Welkom bij Seeker', desc: 'Leer over Seed Vault & Genesis Token', icon: '👋', onchain: false },
-  { id: 2, title: 'Je Eerste Swap', desc: 'Swap SOL → USDC via de app', icon: '🔄', onchain: true },
-  { id: 3, title: 'Tokens Ontdekken', desc: 'Swap naar SKR en BONK', icon: '🪙', onchain: true },
-  { id: 4, title: 'Staking Leren', desc: 'Stake SOL via Seed Vault', icon: '💎', onchain: true },
-  { id: 5, title: 'SKR Staking', desc: 'Stake SKR naar Guardian', icon: '🛡️', onchain: true },
-  { id: 6, title: 'dApp Store Verkennen', desc: 'Installeer 3 aanbevolen apps', icon: '🏪', onchain: false },
-  { id: 7, title: 'Activity Tracker', desc: 'Begrijp ringen, levels & streaks', icon: '🏃', onchain: false },
-  { id: 8, title: 'Dagelijkse Routine', desc: 'Stel je dagelijkse swap in', icon: '📅', onchain: true },
-  { id: 9, title: 'Veiligheid & Scams', desc: 'Herken phishing & bescherm je wallet', icon: '🔒', onchain: false },
-  { id: 10, title: 'Level Up Strategie', desc: 'Tips voor Level 3, 4, 5', icon: '⬆️', onchain: false },
-  { id: 11, title: 'DePIN & Verdienen', desc: 'Grass, Helium en meer', icon: '🌿', onchain: false },
-  { id: 12, title: 'DeFi Gevorderd', desc: 'Liquidity & lending basics', icon: '🏦', onchain: true },
+  { id: 1, title: 'Welcome to Seeker', desc: 'Learn about Seed Vault & Genesis Token', icon: '👋', onchain: false },
+  { id: 2, title: 'Your First Swap', desc: 'Swap SOL → USDC via the app', icon: '🔄', onchain: true },
+  { id: 3, title: 'Exploring Tokens', desc: 'Swap to SKR and BONK', icon: '🪙', onchain: true },
+  { id: 4, title: 'Learning to Stake', desc: 'Stake SOL via Seed Vault', icon: '💎', onchain: true },
+  { id: 5, title: 'SKR Staking', desc: 'Stake SKR to Guardian', icon: '🛡️', onchain: true },
+  { id: 6, title: 'Exploring the dApp Store', desc: 'Install 3 recommended apps', icon: '🏪', onchain: false },
+  { id: 7, title: 'Activity Tracker', desc: 'Understand rings, levels & streaks', icon: '🏃', onchain: false },
+  { id: 8, title: 'Daily Routine', desc: 'Set up your daily swap', icon: '📅', onchain: true },
+  { id: 9, title: 'Security & Scams', desc: 'Recognize phishing & protect your wallet', icon: '🔒', onchain: false },
+  { id: 10, title: 'Level Up Strategy', desc: 'Tips for Level 3, 4, 5', icon: '⬆️', onchain: false },
+  { id: 11, title: 'DePIN & Earning', desc: 'Grass, Helium and more', icon: '🌿', onchain: false },
+  { id: 12, title: 'Advanced DeFi', desc: 'Liquidity & lending basics', icon: '🏦', onchain: true },
 ];
 
 export default function HomeScreen({
@@ -38,6 +40,11 @@ export default function HomeScreen({
   onLicenses: () => void;
 }) {
   const { selectedAccount, deauthorizeSession } = useAuthorization();
+  const [streakState, setStreakState] = useState<StreakState | null>(null);
+
+  useEffect(() => {
+    getStreakState().then(setStreakState);
+  }, []);
 
   const shortAddress = selectedAccount
     ? `${selectedAccount.publicKey.toString().slice(0, 4)}...${selectedAccount.publicKey.toString().slice(-4)}`
@@ -46,9 +53,9 @@ export default function HomeScreen({
   const handleDisconnect = () => {
     Alert.alert(
       'Disconnect Wallet',
-      'Weet je zeker dat je je wallet wilt disconnecten?',
+      'Are you sure you want to disconnect your wallet?',
       [
-        { text: 'Annuleer', style: 'cancel' },
+        { text: 'Cancel', style: 'cancel' },
         { text: 'Disconnect', style: 'destructive', onPress: async () => {
           await transact(async wallet => { await deauthorizeSession(wallet); });
         }},
@@ -59,7 +66,7 @@ export default function HomeScreen({
   const handleQuestPress = (questId: number) => {
     const unlocked = isQuestUnlocked(questId, completedQuests);
     if (!unlocked) {
-      Alert.alert('🔒 Vergrendeld', `Voltooi Quest ${questId - 1} eerst om deze te ontgrendelen.`, [{ text: 'OK' }]);
+      Alert.alert('🔒 Locked', `Complete Quest ${questId - 1} first to unlock this one.`, [{ text: 'OK' }]);
       return;
     }
     onStartQuest(questId);
@@ -87,13 +94,17 @@ export default function HomeScreen({
       {/* Progress */}
       <View style={styles.progressContainer}>
         <View style={styles.progressRow}>
-          <Text style={styles.progressLabel}>{completedQuests.length}/{QUESTS.length} quests voltooid</Text>
-          {nextQuest && <Text style={styles.nextLabel}>Volgende: {nextQuest.icon} {nextQuest.title}</Text>}
+          <Text style={styles.progressLabel}>{completedQuests.length}/{QUESTS.length} quests completed</Text>
+          {nextQuest && <Text style={styles.nextLabel}>Next: {nextQuest.icon} {nextQuest.title}</Text>}
         </View>
         <View style={styles.progressTrack}>
           <View style={[styles.progressFill, { width: `${progressPct}%` }]} />
         </View>
       </View>
+
+      {streakState && (
+        <StreakBanner streak={streakState} accentColor="#FF7800" />
+      )}
 
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         {QUESTS.map((quest) => {
@@ -127,7 +138,7 @@ export default function HomeScreen({
                   )}
                 </View>
                 <Text style={[styles.questDesc, !unlocked && { opacity: 0.3 }]}>
-                  {unlocked ? quest.desc : `Voltooi Quest ${quest.id - 1} eerst`}
+                  {unlocked ? quest.desc : `Complete Quest ${quest.id - 1} first`}
                 </Text>
               </View>
               {completed && <Text style={styles.completedCheck}>✅</Text>}
@@ -143,11 +154,11 @@ export default function HomeScreen({
           </TouchableOpacity>
           <Text style={styles.footerDivider}>·</Text>
           <TouchableOpacity onPress={onTerms}>
-            <Text style={styles.footerLink}>Gebruiksvoorwaarden</Text>
+            <Text style={styles.footerLink}>Terms of Use</Text>
           </TouchableOpacity>
           <Text style={styles.footerDivider}>·</Text>
           <TouchableOpacity onPress={onLicenses}>
-            <Text style={styles.footerLink}>Licenties</Text>
+            <Text style={styles.footerLink}>Licenses</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.footerVersion}>Seeker Quest v1.0 — Built for Solana Mobile</Text>

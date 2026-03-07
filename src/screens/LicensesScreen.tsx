@@ -2,12 +2,12 @@ import React from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
 
 const LICENSES = [
-  { name: 'React Native', version: '0.71', license: 'MIT', author: 'Meta Platforms, Inc.', desc: 'Framework voor het bouwen van native apps met React.' },
-  { name: '@react-native-async-storage/async-storage', version: '1.18.2', license: 'MIT', author: 'React Native Community', desc: 'Asynchrone key-value opslag voor React Native.' },
-  { name: '@solana/web3.js', version: '1.x', license: 'MIT', author: 'Solana Labs', desc: 'Solana JavaScript API voor blockchain interactie.' },
-  { name: '@solana-mobile/mobile-wallet-adapter-protocol', version: 'latest', license: 'Apache 2.0', author: 'Solana Mobile', desc: 'Mobile Wallet Adapter protocol voor Solana Mobile.' },
-  { name: '@solana-mobile/mobile-wallet-adapter-protocol-web3js', version: 'latest', license: 'Apache 2.0', author: 'Solana Mobile', desc: 'Web3.js integratie voor Solana Mobile Wallet Adapter.' },
-  { name: 'React', version: '18.x', license: 'MIT', author: 'Meta Platforms, Inc.', desc: 'JavaScript library voor het bouwen van gebruikersinterfaces.' },
+  { name: 'React Native', version: '0.71', license: 'MIT', author: 'Meta Platforms, Inc.', desc: 'Framework for building native apps with React.' },
+  { name: '@react-native-async-storage/async-storage', version: '1.18.2', license: 'MIT', author: 'React Native Community', desc: 'Asynchronous key-value storage for React Native.' },
+  { name: '@solana/web3.js', version: '1.x', license: 'MIT', author: 'Solana Labs', desc: 'Solana JavaScript API for blockchain interaction.' },
+  { name: '@solana-mobile/mobile-wallet-adapter-protocol', version: 'latest', license: 'Apache 2.0', author: 'Solana Mobile', desc: 'Mobile Wallet Adapter protocol for Solana Mobile.' },
+  { name: '@solana-mobile/mobile-wallet-adapter-protocol-web3js', version: 'latest', license: 'Apache 2.0', author: 'Solana Mobile', desc: 'Web3.js integration for Solana Mobile Wallet Adapter.' },
+  { name: 'React', version: '18.x', license: 'MIT', author: 'Meta Platforms, Inc.', desc: 'JavaScript library for building user interfaces.' },
 ];
 
 const LICENSE_COLORS: Record<string, string> = {
@@ -20,14 +20,14 @@ export default function LicensesScreen({ onBack }: { onBack: () => void }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={onBack} style={styles.backBtn}>
-          <Text style={styles.backText}>← Terug</Text>
+          <Text style={styles.backText}>← Back</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Open Source Licenties</Text>
+        <Text style={styles.headerTitle}>Open Source Licenses</Text>
       </View>
       <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           <Text style={styles.intro}>
-            Seeker Quest is gebouwd met de volgende open source bibliotheken. We zijn dankbaar aan de communities die deze onderhouden.
+            Seeker Quest is built with the following open source libraries. We are grateful to the communities that maintain them.
           </Text>
           {LICENSES.map((lib, i) => (
             <View key={i} style={styles.card}>
@@ -37,7 +37,7 @@ export default function LicensesScreen({ onBack }: { onBack: () => void }) {
                   <Text style={[styles.badgeText, { color: LICENSE_COLORS[lib.license] || '#666' }]}>{lib.license}</Text>
                 </View>
               </View>
-              <Text style={styles.libAuthor}>door {lib.author} · v{lib.version}</Text>
+              <Text style={styles.libAuthor}>by {lib.author} · v{lib.version}</Text>
               <Text style={styles.libDesc}>{lib.desc}</Text>
             </View>
           ))}

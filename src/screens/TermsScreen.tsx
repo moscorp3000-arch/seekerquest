@@ -6,25 +6,25 @@ export default function TermsScreen({ onBack }: { onBack: () => void }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={onBack} style={styles.backBtn}>
-          <Text style={styles.backText}>← Terug</Text>
+          <Text style={styles.backText}>← Back</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Gebruiksvoorwaarden</Text>
+        <Text style={styles.headerTitle}>Terms of Use</Text>
       </View>
       <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
-          <Text style={styles.lastUpdated}>Laatst bijgewerkt: maart 2026</Text>
+          <Text style={styles.lastUpdated}>Last updated: March 2026</Text>
           <Text style={styles.intro}>
-            Door Seeker Quest te gebruiken ga je akkoord met deze voorwaarden. Lees ze zorgvuldig door.
+            By using Seeker Quest you agree to these terms. Please read them carefully.
           </Text>
           {[
-            { title: '1. Acceptatie van voorwaarden', text: 'Door de app te downloaden of gebruiken ga je akkoord met deze gebruiksvoorwaarden. Gebruik de app niet als je hier niet mee akkoord gaat.' },
-            { title: '2. Beschrijving van de dienst', text: 'Seeker Quest is een educatieve app voor het leren over Solana, DeFi, en het Seeker ecosysteem via interactieve quests en gamificatie.\n\nDe app is gratis. Bij het voltooien van alle quests wordt een kleine wallet verificatietransactie gevraagd (± 0.000001 SOL).' },
-            { title: '3. Wallet Verificatie & Airdrop Deelname', text: 'Bij het voltooien van alle quests word je gevraagd een kleine verificatietransactie uit te voeren.\n\nDoel van deze transactie:\n• Bewijs dat je een actieve Solana wallet hebt\n• Kwalificatie voor toekomstige Seeker Mobile airdrop seizoenen\n• Jouw wallet adres wordt opgeslagen als gekwalificeerde deelnemer\n\nDeze transactie is vrijwillig maar vereist voor airdrop deelname. Jouw wallet adres is publiek zichtbaar op de Solana blockchain.' },
-            { title: '4. Alleen educatief', text: 'Alle content is uitsluitend voor educatieve doeleinden.\n\nNiets in deze app is:\n• Financieel advies\n• Beleggingsadvies\n• Handelsaanbevelingen\n• Juridisch advies\n\nCrypto-investeringen dragen aanzienlijk risico. Doe altijd eigen onderzoek.' },
-            { title: '5. Blockchain transacties', text: 'Seeker Quest faciliteert on-chain transacties. Hierbij:\n\n• Zijn blockchain transacties onomkeerbaar\n• Ben jij verantwoordelijk voor elke transactie die je autoriseert\n• Zijn transactiekosten niet restitueerbaar\n• Zijn wij niet verantwoordelijk voor verlies door gebruikersfouten\n\nAlle transacties vereisen jouw bevestiging via Seed Vault.' },
-            { title: '6. Wallet veiligheid', text: 'Jij bent verantwoordelijk voor de beveiliging van je wallet.\n\n• Deel je seed phrase nooit met iemand\n• Wij vragen nooit om je seed phrase of private keys\n• Wij kunnen verloren wallets of fondsen niet herstellen\n• Controleer altijd transactiedetails voor je bevestigt' },
-            { title: '7. Intellectueel eigendom', text: 'Alle content, design en code in Seeker Quest is eigendom van de ontwikkelaars, tenzij anders aangegeven. Je mag de app niet kopiëren, aanpassen of distribueren zonder toestemming.' },
-            { title: '8. Beperking van aansprakelijkheid', text: 'Voor zover wettelijk toegestaan zijn wij niet aansprakelijk voor indirecte of gevolgschade door het gebruik van de app, inclusief verlies van fondsen of data.' },
+            { title: '1. Acceptance of terms', text: 'By downloading or using the app you agree to these terms of use. Do not use the app if you do not agree.' },
+            { title: '2. Description of service', text: 'Seeker Quest is an educational app for learning about Solana, DeFi, and the Seeker ecosystem through interactive quests and gamification.\n\nThe app is free. Upon completing all quests, a small wallet verification transaction is requested (± 0.000001 SOL).' },
+            { title: '3. Wallet Verification & On-chain Record', text: 'Upon completing all quests you will be asked to perform a small verification transaction.\n\nPurpose of this transaction:\n• Proof that you have an active Solana wallet\n• Creates an on-chain record of your completion\n• Your wallet address is stored as a verified participant\n\nThis transaction is voluntary but required for on-chain registration. Your wallet address is publicly visible on the Solana blockchain.' },
+            { title: '4. Educational only', text: 'All content is for educational purposes only.\n\nNothing in this app is:\n• Financial advice\n• Investment advice\n• Trading recommendations\n• Legal advice\n\nCrypto investments carry significant risk. Always do your own research.' },
+            { title: '5. Blockchain transactions', text: 'Seeker Quest facilitates on-chain transactions. By doing so:\n\n• Blockchain transactions are irreversible\n• You are responsible for every transaction you authorize\n• Transaction fees are non-refundable\n• We are not responsible for loss due to user error\n\nAll transactions require your confirmation via Seed Vault.' },
+            { title: '6. Wallet security', text: 'You are responsible for securing your wallet.\n\n• Never share your seed phrase with anyone\n• We will never ask for your seed phrase or private keys\n• We cannot recover lost wallets or funds\n• Always verify transaction details before confirming' },
+            { title: '7. Intellectual property', text: 'All content, design and code in Seeker Quest is owned by the developers unless otherwise indicated. You may not copy, modify or distribute the app without permission.' },
+            { title: '8. Limitation of liability', text: 'To the extent permitted by law, we are not liable for indirect or consequential damages from using the app, including loss of funds or data.' },
           ].map((s, i) => (
             <View key={i} style={styles.section}>
               <Text style={styles.sectionTitle}>{s.title}</Text>
