@@ -1,0 +1,19 @@
+title: SeekerQuest
+description: |
+  SeekerQuest is a Solana-powered quest app for the Seeker phone. 
+  Complete 12 quests to learn about Solana, Web3, and the Seeker ecosystem. 
+  Earn a micro-reward of 0.000001 SOL upon completion. Built by SeekerLabs.
+developer: SeekerLabs
+website: https://seekerlabs.xyz
+contact: seekerlabs@proton.me
+cryptocurrencies:
+  - SOL
+android_package: com.seekpathwallet
+android_app_store_url: https://github.com/moscorp3000-arch/seekerquest
+banner_image_url: https://seekerlabs.xyz/assets/seekerquest_banner.png
+tags:
+  - education
+  - quests
+  - solana
+  - web3
+  - seeker
