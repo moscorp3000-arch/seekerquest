@@ -9,7 +9,7 @@ contact: eds3000@proton.me
 version: 1.0.2
 privacy_policy_url: https://moscorp3000-arch.github.io/seekerquest/privacy.html
 terms_url: https://moscorp3000-arch.github.io/seekerquest/terms.html
-download_url: https://github.com/moscorp3000-arch/seekerquest/releases/download/v1.0.2/app-release.apk
+download_url: https://github.com/moscorp3000-arch/seekerquest/releases/download/v1.0.3/app-release.apk
 cryptocurrencies:
   - SOL
 android_package: com.seekpathwallet
