@@ -13,7 +13,7 @@ download_url: https://github.com/moscorp3000-arch/seekerquest/releases/download/
 cryptocurrencies:
   - SOL
 android_package: com.seekpathwallet
-android_app_store_url: https://github.com/moscorp3000-arch/seekerquest
+android_app_store_url: https://github.com/moscorp3000-arch/seekerquest/releases/download/v1.0.3/app-release.apk
 tags:
   - education
   - quests
